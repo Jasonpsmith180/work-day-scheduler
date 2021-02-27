@@ -31,7 +31,33 @@ $(document).ready(function() {
     //     $("#hour[i] .description").val(localStorage.getItem("hour[i]"));
     // };
 
+    // Function to track time
+    function trackTime() {
+        // Get current hour
+        var currentTime = moment().hour();
+        console.log(currentTime);
+
+        // loop through time-block divs
+        $(".time-block").each(function() {
+            var timeBlock = parseInt($(this).attr("id").split("hour")[1]);
+
+            // Compare timeBlock value to currentTime and add css classes based on the value
+            if (timeBlock < currentTime) {
+                $(this).addClass("past");
+                $(this).removeClass("present");
+                $(this).removeClass("future");
+            } else if (timeBlock === currentTime) {
+                $(this).addClass("present");
+                $(this).removeClass("past");
+                $(this).removeClass("future");
+            } else {
+                $(this).addClass("future");
+                $(this).removeClass("past");
+                $(this).removeClass("present");
+            }
+        });
+    }
+
+    trackTime();
+
 })
-
-
-
